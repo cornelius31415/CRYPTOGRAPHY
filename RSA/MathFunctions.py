@@ -9,7 +9,7 @@ Created on Mon Jan 27 12:02:23 2025
 
 #Euklid Algorithm to calculate the greatest common divisor 
 #Used to calcualte the public key
-def GGD(a,b):
+def GCD(a,b):
     a_list = []
     b_list = []
     rest = 1
