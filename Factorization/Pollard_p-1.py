@@ -27,19 +27,16 @@ Created on Wed Feb  5 18:29:29 2025
             
             THE ALGORITHM
             
-            1. Set a boundary H
+            1. Set a boundary H. H should not be too big, otherwise n will be a gcd. 
             2. Calculate all prime numbers smaller than H
             3. For each prime calculate the highest power smaller than H
             4. Multiply all the prime powers together -> multiple of p-1
-            5. Calculate 2**k - 1
-            6. Calculate gcd(2**k-1, n)
+            5. Calculate 2**k - 1 mod n
+            6. Calculate gcd(2**k-1 mod n, n)
             
             
-            H should not be too big, otherwise n will be a gcd 
-            Start with sqrt(n)
-            then progressively increase if it does not work
-            n ** 1/3
-            n ** 1/4
+            
+
 
 
 """
@@ -57,8 +54,6 @@ import time
 
 # CHECK IF NUMBER IS PRIME
 def is_prime(n):
-    
-    
     
     for i in range(2,int(n**0.5)+1):
         if n % i == 0:
@@ -102,7 +97,7 @@ def highestPower(p,H):
         
     return hPower
     
-    
+# CALCULATE A MULTIPLE OF p-1
 def multipleK(H):
     
     primeProduct = 1
@@ -112,7 +107,7 @@ def multipleK(H):
                 
     return primeProduct
     
-    
+# THE ACTUAL POLLARD p-1 FACTORIZATION
 def pollardFactorize(n):
     
     H = min(int(n**0.25),100000)
