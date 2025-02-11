@@ -28,9 +28,10 @@ Created on Wed Feb  5 18:29:29 2025
             THE ALGORITHM
             
             1. Set a boundary H. H should not be too big, otherwise n will be a gcd. 
+               Good starting point is H = n**0.25
             2. Calculate all prime numbers smaller than H
             3. For each prime calculate the highest power smaller than H
-            4. Multiply all the prime powers together -> multiple of p-1
+            4. Multiply all the prime powers together -> you get a multiple of p-1
             5. Calculate 2**k - 1 mod n
             6. Calculate gcd(2**k-1 mod n, n)
             
@@ -73,13 +74,16 @@ def factorizeBruteForce(n):
     
     factors = []
     num = n
-    for factor in primes(int(n**0.5)):
+    for factor in primes(int(n**0.5)+1):
         while num % factor == 0:
             factors.append(factor)
-            num = num / factor
+            num = num // factor
     
         if num == 1:
             break
+    
+    if num > 1:
+        factors.append(num)
           
     return factors
 
@@ -119,6 +123,24 @@ def pollardFactorize(n):
 
 
 
+
+def factorize(n):
+    
+    factors = []
+    while n > 1:
+        
+        if is_prime(n):  
+            factors.append(n)
+            break
+        
+        factor = pollardFactorize(n)
+   
+        factors.append(factor)
+        n = n // factor
+        
+    return factors
+
+
 # -----------------------------------------------------------------------
 #                               TESTING   
 # -----------------------------------------------------------------------
@@ -130,13 +152,13 @@ n = 1372319802547       #    = 174440041*7867
 
 start1 = time.time()
 
-primeFactor = factorizeBruteForce(n)[0]
+primeFactor = factorizeBruteForce(n)
 
 end1 = time.time()
 runtime1 = end1 - start1
 
-print(f"\nBrute Force Factor: {primeFactor}")
-print(f"Brute Force Factorization Runtime:{runtime1: .4f}s \n")
+print(f"\nBrute Force Factors:               {primeFactor}")
+print(f"Brute Force Factorization Runtime:{runtime1: .4f} s \n")
 
 
 
@@ -145,16 +167,16 @@ print(f"Brute Force Factorization Runtime:{runtime1: .4f}s \n")
 
 start2 = time.time()
 
-primeFactor = pollardFactorize(n)
+primeFactor = factorize(n)
 
 end2 = time.time()
 runtime2 = end2 - start2
 
-print(f"Pollard p-1 Factor: {primeFactor}")
-print(f"Pollard p-1 Runtime:              {runtime2: .8f}s")
+print(f"Pollard p-1 Factor:                {primeFactor}")
+print(f"Pollard p-1 Runtime:              {runtime2: .8f} s")
     
 
-print(f"Pollard Algorithm is {round(runtime1/runtime2,1)} times faster than the Brute Force Algorithm")
+print(f"\nPollard's (p-1)-Algorithm is {round(runtime1/runtime2,1)} times faster than the Brute Force Algorithm.")
 
 
 
