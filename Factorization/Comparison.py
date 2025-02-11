@@ -14,7 +14,7 @@ from math import gcd
 import time
 from BruteForce import factorizeBruteForce
 from Pollard_p1 import factorizeP1
-from Pollard_rho import factorizeRho
+from PollardRho import factorizeRho
 
 # -----------------------------------------------------------------------
 #                               TESTING   
