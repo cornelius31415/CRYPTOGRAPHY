@@ -53,6 +53,7 @@ import time
 #                            PRIME SECTION   
 # -----------------------------------------------------------------------
 
+
 # CHECK IF NUMBER IS PRIME
 def is_prime(n):
     
@@ -62,6 +63,8 @@ def is_prime(n):
         
     return True
 
+
+
 # GENERATE LIST OF PRIMES SMALLER THAN n
 def primes(n):
     
@@ -70,26 +73,11 @@ def primes(n):
     return primes
 
 
-def factorizeBruteForce(n):
-    
-    factors = []
-    num = n
-    for factor in primes(int(n**0.5)+1):
-        while num % factor == 0:
-            factors.append(factor)
-            num = num // factor
-    
-        if num == 1:
-            break
-    
-    if num > 1:
-        factors.append(num)
-          
-    return factors
-
 # -----------------------------------------------------------------------
 #                             POLLARD p-1   
 # -----------------------------------------------------------------------
+
+
 
 # HIGHEST PRIME POWER SMALLER THAN BOUNDARY H
 def highestPower(p,H):
@@ -101,6 +89,8 @@ def highestPower(p,H):
         
     return hPower
     
+
+
 # CALCULATE A MULTIPLE OF p-1
 def multipleK(H):
     
@@ -111,6 +101,9 @@ def multipleK(H):
                 
     return primeProduct
     
+
+
+
 # THE ACTUAL POLLARD p-1 FACTORIZATION
 def pollardFactorize(n):
     
@@ -124,7 +117,8 @@ def pollardFactorize(n):
 
 
 
-def factorize(n):
+# REPEATEDLY APPLIES POLLARD p-1 TO FIND ALL PRIME FACTORS
+def factorizeP1(n):
     
     factors = []
     while n > 1:
@@ -139,44 +133,6 @@ def factorize(n):
         n = n // factor
         
     return factors
-
-
-# -----------------------------------------------------------------------
-#                               TESTING   
-# -----------------------------------------------------------------------
-
-n = 1372319802547       #    = 174440041*7867
-
-
-#                       Brute Force Factorization
-
-start1 = time.time()
-
-primeFactor = factorizeBruteForce(n)
-
-end1 = time.time()
-runtime1 = end1 - start1
-
-print(f"\nBrute Force Factors:               {primeFactor}")
-print(f"Brute Force Factorization Runtime:{runtime1: .4f} s \n")
-
-
-
-
-#                       Pollard p-1 Factorization
-
-start2 = time.time()
-
-primeFactor = factorize(n)
-
-end2 = time.time()
-runtime2 = end2 - start2
-
-print(f"Pollard p-1 Factor:                {primeFactor}")
-print(f"Pollard p-1 Runtime:              {runtime2: .8f} s")
-    
-
-print(f"\nPollard's (p-1)-Algorithm is {round(runtime1/runtime2,1)} times faster than the Brute Force Algorithm.")
 
 
 
