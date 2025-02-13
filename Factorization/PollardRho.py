@@ -6,6 +6,29 @@ Created on Tue Feb 11 14:52:34 2025
 @author: cornelius
 """
 
+"""
+
+                                POLLARD RHO
+            
+            We want to factorize the number n
+            
+            1. Define a function to generate pseudo random numbers 
+               f(x) = (x**2 + 1) mod n
+               
+            2. Set x to be a random number between 2 und n-1 and
+               y to the same value as x
+               
+            3. Calculate f(x,n) and f(f(y,n),n)
+            
+            4. Determine the gcd of both numbers. If gcd = 1 or gcd = n
+               set x to f(x,n) and y to f(f(y,n),n) and restart at step 3
+               
+               If gcd is something in between it is a prime factor
+
+
+"""
+
+
 
 # -----------------------------------------------------------------------
 #                               IMPORTS   
